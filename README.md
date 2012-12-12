@@ -1,6 +1,12 @@
 # ngmin
 ngmin is an _experimental_ AngularJS application minifier. Experimental means this **should not** yet be used in production, but you **should** try it out and let me know what you think. The goal is ultimately to use this alongside yeoman and grunt to make developing and building Angular apps fast, easy, and fun.
 
+## Installation
+Install via npm:
+```bash
+npm install -g ngmin
+```
+
 ## CLI Usage
 
 ```bash
