@@ -28,6 +28,15 @@ angular.module('myModuleName').controller('MyCtrl', function ($scope) {
 });
 ```
 
+### Service Declaration
+
+```javascript
+// like this
+angular.module('myModuleName').controller('MyCtrl', function ($scope) {
+  // ...
+});
+```
+
 ## Conceptual Overview
 AngularJS's DI system inspects function parameters to determine what to inject:
 ```javascript
@@ -36,7 +45,7 @@ angular.factory('myFactory', function (myService) {
   // ...
 });
 ```
-AngularJS does this for `angular.controller`, angular.service`, angular.factory`, etc.
+AngularJS does this for `angular.controller`, `angular.service`, `angular.factory`, etc. Check out the [developer guide on DI](http://docs.angularjs.org/guide/di) for more info.
 
 JavaScript minifiers rename function parameters. The code above, when minified, might look like this:
 ```javascript
@@ -46,7 +55,7 @@ angular.factory('myFactory', function (a) {
 });
 ```
 
-To overcome this, AngularJS has a "minifier-safe" notation that annotates `angular.controller`, angular.service`, angular.factory` with an array of dependencies' names as strings:
+To overcome this, AngularJS has a minifier-safe "inline" notation (see [Inline Annotation](http://docs.angularjs.org/guide/di) in the docs) that annotates `angular.controller`, `angular.service`, `angular.factory` with an array of dependencies' names as strings:
 ```javascript
 // angular knows to inject "myService" based on the parameter in "myFactory"
 angular.factory('myFactory', ['myService', function (myService) {
@@ -57,7 +66,7 @@ angular.factory('myFactory', ['myService', function (myService) {
 So with this notation, when minified, still includes the correct dependency names even if the function arguments are re-written:
 ```javascript
 angular.factory('myFactory', ['myService', function (a) {
-  // minified variable "a" will represent "myFactory"
+  // minified variable "a" will represent "mySactory"
   // ...
 }]);
 ```
