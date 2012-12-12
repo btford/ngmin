@@ -4,7 +4,7 @@ ngmin is an experimental AngularJS application minifier. Experimental means this
 ## CLI Usage
 
 ```bash
-ngmin somefile.js > somefile.annotate.js
+ngmin somefile.js somefile.annotate.js
 ```
 
 From here, you can concat and pass the annotated files to a minifier. Future versions of ngmin will include a minifier, probably based on Google Closure Compiler.
