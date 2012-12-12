@@ -5,7 +5,7 @@ var program = require('commander'),
   ngmin = require('../main');
 
 program
-  .version('0.0.3')
+  .version('0.0.4')
   .usage('<infile> <outfile>')
   .parse(process.argv);
 
