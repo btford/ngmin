@@ -22,7 +22,7 @@ var signature = module.exports = {
       },
       "property": {
         "type": "Identifier",
-        "name": /^(controller|service|factory)$/
+        "name": /^(controller|directive|filter|service|factory|decorator)$/
       }
     },
     "arguments": [
