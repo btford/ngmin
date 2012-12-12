@@ -73,7 +73,7 @@ angular.factory('myFactory', ['myService', function (myService) {
 So with this notation, when minified, still includes the correct dependency names even if the function arguments are re-written:
 ```javascript
 angular.factory('myFactory', ['myService', function (a) {
-  // minified variable "a" will represent "mySactory"
+  // minified variable "a" will represent "myService"
   // ...
 }]);
 ```
