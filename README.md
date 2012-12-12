@@ -1,5 +1,5 @@
 # ngmin
-ngmin is an experimental AngularJS application minifier. Experimental means this should not yet be used in production, but you should try it out and let me know what you think. The goal is ultimately to use this alongside yeoman and grunt to make developing and building Angular apps fast, easy, and fun.
+ngmin is an _experimental_ AngularJS application minifier. Experimental means this **should not** yet be used in production, but you **should** try it out and let me know what you think. The goal is ultimately to use this alongside yeoman and grunt to make developing and building Angular apps fast, easy, and fun.
 
 ## CLI Usage
 
@@ -23,7 +23,9 @@ angular.module('myModuleName', ['dependOnThisModule']);
 
 ```javascript
 // like this
-angular.module
+angular.module('myModuleName').controller('MyCtrl', function ($scope) {
+  // ...
+});
 ```
 
 ## Conceptual Overview
