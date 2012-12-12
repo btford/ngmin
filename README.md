@@ -35,10 +35,11 @@ angular.module('myModuleName').controller('MyCtrl', function ($scope) {
 ```
 
 ### Service Declaration
+This should work for all injectable APIs.
 
 ```javascript
 // like this
-angular.module('myModuleName').controller('MyCtrl', function ($scope) {
+angular.module('myModuleName').service('MyCtrl', function ($scope) {
   // ...
 });
 ```
