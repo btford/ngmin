@@ -1,10 +1,33 @@
 #!/usr/bin/env node
 
-var fs = require('fs'),
-  ngmin = require('../main'),
-  infile = process.argv[2],
-  outfile = process.argv[3];
+var program = require('commander'),
+  fs = require('fs'),
+  ngmin = require('../main');
 
-var content = fs.readFileSync(infile, 'utf-8');
+program
+  .version('0.0.3')
+  .usage('<infile> <outfile>')
+  .parse(process.argv);
+
+if (program.args.length < 2) {
+  console.error('ngmin called with too few arguments');
+  process.exit(1);
+}
+
+var infile = program.args[0];
+var outfile = program.args[1];
+
+try {
+  var content = fs.readFileSync(infile, 'utf-8');
+} catch (e) {
+  console.error('Error opening: ' + infile);
+  process.exit(1);
+}
 var generatedCode = ngmin.annotate(content);
-fs.writeFileSync(outfile, generatedCode);
+
+try {
+  fs.writeFileSync(outfile, generatedCode);
+} catch (e) {
+  console.error('Error writing to: ' + outfile);
+  process.exit(1);
+}
