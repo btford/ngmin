@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+var fs = require('fs'),
+  ngmin = require('../main'),
+  infile = process.argv[2],
+  outfile = process.argv[3];
+
+var content = fs.readFileSync(infile, 'utf-8');
+var generatedCode = ngmin.annotate(content);
+fs.writeFileSync(outfile, generatedCode);

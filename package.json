@@ -1,27 +1,27 @@
 {
   "name": "ngmin",
-  "version": "0.0.0",
   "description": "AngularJS Minifier",
+  "version": "0.0.2",
+  "author": "Brian Ford",
+  "license": "MIT",
   "main": "main.js",
-  "directories": {
-    "test": "test"
-  },
   "dependencies": {
     "escodegen": "~0.0.15",
     "esprima": "~1.0.2"
   },
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/btford/ngmin.git"
-  },
   "keywords": [
     "angularjs",
     "minifier"
   ],
-  "author": "Brian Ford",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/btford/ngmin"
+  },
+  "bin": {
+    "ngmin": "./bin/ngmin"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
