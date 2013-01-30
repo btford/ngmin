@@ -1,7 +1,7 @@
 {
   "name": "ngmin",
   "description": "AngularJS Minifier",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "author": "Brian Ford",
   "license": "MIT",
   "main": "main.js",
@@ -10,7 +10,10 @@
     "esprima": "~1.0.2",
     "commander": "~1.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "should": "~1.2.1",
+    "mocha": "~1.5.0"
+  },
   "keywords": [
     "angularjs",
     "minifier"
@@ -23,6 +26,6 @@
     "ngmin": "./bin/ngmin"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   }
 }

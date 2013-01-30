@@ -1,3 +1,9 @@
+/*
+ * Checks each property of the standard recursively against the candidate,
+ * ignoring additional properties of the candidate.
+ * Returns true iff the candidate matches each of the standard's
+ * properties
+ */
 
 var deepCompare = module.exports = function (candidate, standard) {
   if (!standard && !candidate) {
