@@ -11,7 +11,14 @@ var esprima = require('esprima'),
 var annotateAST = function (syntax) {
 
   // locate angular modules and references
-  syntax.body
+  syntax.body.forEach(function (chunk) {
+    // body
+
+    // look for references
+    if (chunk.type === 'VariableDeclaration') {
+      
+    }
+  });
 
   // rewrite each matching chunk
   syntax.body.forEach(function (chunk) {
