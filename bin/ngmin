@@ -10,7 +10,7 @@ program
   .usage('<infiles or stdin> -o <outfile or stdout>');
 
 var infiles = argv._;
-var outfile = argv.o > 1 ? argv.o : null;
+var outfile = argv.o ? argv.o : null;
 
 var content = "";
 if(infiles.length) {
