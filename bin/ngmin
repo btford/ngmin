@@ -2,31 +2,36 @@
 
 var program = require('commander'),
   fs = require('fs'),
+  argv = require('optimist').argv,
   ngmin = require('../main');
 
 program
   .version('0.0.4')
-  .usage('<infile> <outfile>')
-  .parse(process.argv);
+  .usage('<infiles or stdin> -o <outfile or stdout>');
 
-if (program.args.length < 2) {
-  console.error('ngmin called with too few arguments');
-  process.exit(1);
-}
+var infiles = argv._;
+var outfile = argv.o > 1 ? argv.o : null;
 
-var infile = program.args[0];
-var outfile = program.args[1];
-
-try {
-  var content = fs.readFileSync(infile, 'utf-8');
-} catch (e) {
-  console.error('Error opening: ' + infile);
-  process.exit(1);
+var content = "";
+if(infiles.length) {
+  for(var i = 0, l = infiles.length; i < l; i++) {
+     var infile = infiles[i];
+     try {
+       content += fs.readFileSync(infile, 'utf-8') + ";"
+     } catch (e) {
+       console.error('Error opening: ' + infile);
+       process.exit(1);
+     }
+  }
+} else {
+  process.stdin.resume();
+  process.stdin.setEncoding('utf8');
+  content = fs.readSync(process.stdin.fd, 100000).shift();
 }
 var generatedCode = ngmin.annotate(content);
 
 try {
-  fs.writeFileSync(outfile, generatedCode);
+  outfile ? fs.writeFileSync(outfile, generatedCode) : fs.writeSync(process.stdout.fd, generatedCode);
 } catch (e) {
   console.error('Error writing to: ' + outfile);
   process.exit(1);

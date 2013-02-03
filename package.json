@@ -8,6 +8,7 @@
   "dependencies": {
     "escodegen": "~0.0.15",
     "esprima": "~1.0.2",
+    "optimist": "~0.3.5",
     "commander": "~1.1.1"
   },
   "devDependencies": {

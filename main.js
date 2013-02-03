@@ -23,10 +23,10 @@ var annotateAST = function (syntax) {
         elements: []
       };
       originalFn.params.forEach(function (param) {
-        newParam.elements.push({
-          "type": "Literal",
-          "value": param.name
-        });
+          newParam.elements.push({
+              "type": "Literal",
+              "value": param.name
+          });
       });
       newParam.elements.push(originalFn);
     }
@@ -46,9 +46,9 @@ var annotate = exports.annotate = function (inputCode) {
 
   var generatedCode = escodegen.generate(syntax, {
     format: {
-      indent: {
-        style: '  '
-      }
+        indent: {
+            style: '    '
+        }
     }
   });
 
