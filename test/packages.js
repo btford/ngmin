@@ -1,7 +1,7 @@
 /*
  * Test simple cases
  *
- *     angular.module('myMod', []).controller( ... );
+ *     angular.module('myMod').controller( ... );
  *
  */
 
@@ -19,12 +19,11 @@ describe('annotate', function () {
 
   it('should annotate controllers', function () {
     var annotated = annotate(function () {
-      angular.module('myMod', []).
-        controller('MyCtrl', function ($scope) {});
+      $angular.myMod.controllers.MyCtrl = function ($scope) {};
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []).controller('MyCtrl', [
+      angular.module('myMod').controller('MyCtrl', [
         '$scope',
         function ($scope) {
         }
@@ -35,17 +34,16 @@ describe('annotate', function () {
 
   it('should annotate directives', function () {
     var annotated = annotate(function () {
-      angular.module('myMod', []).
-        directive('myDirective', function ($rootScope) {
-          return {
-            restrict: 'E',
-            template: 'sup'
-          };
-        });
+        $angular.myMod.directives.myDirective = function ($rootScope) {
+            return {
+                restrict: 'E',
+                template: 'sup'
+            };
+        };
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []).directive('myDirective', [
+      angular.module('myMod').directive('myDirective', [
         '$rootScope',
         function ($rootScope) {
           return {
@@ -60,12 +58,11 @@ describe('annotate', function () {
 
   it('should annotate filters', function () {
     var annotated = annotate(function () {
-      angular.module('myMod', []).
-        filter('myFilter', function (dep) {});
+       $angular.myMod.filters.myFilter = function (dep) {};
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []).filter('myFilter', [
+      angular.module('myMod').filter('myFilter', [
         'dep',
         function (dep) {
         }
@@ -76,12 +73,11 @@ describe('annotate', function () {
 
   it('should annotate services', function () {
     var annotated = annotate(function () {
-      angular.module('myMod', []).
-        service('myService', function (dep) {});
+        $angular.myMod.services.myService = function (dep) {};
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []).service('myService', [
+      angular.module('myMod').service('myService', [
         'dep',
         function (dep) {
         }
@@ -92,12 +88,11 @@ describe('annotate', function () {
 
   it('should annotate factories', function () {
     var annotated = annotate(function () {
-      angular.module('myMod', []).
-        controller('factory', function (dep) {});
+        $angular.myMod.factories.factory = function (dep) {};
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []).controller('factory', [
+      angular.module('myMod').factory('factory', [
         'dep',
         function (dep) {
         }
@@ -108,12 +103,11 @@ describe('annotate', function () {
 
   it('should annotate decorators', function () {
     var annotated = annotate(function () {
-      angular.module('myMod', []).
-        decorator('myService', function (dep) {});
+        $angular.myMod.decorators.myService = function (dep) {};
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []).decorator('myService', [
+      angular.module('myMod').decorator('myService', [
         'dep',
         function (dep) {
         }
@@ -124,12 +118,11 @@ describe('annotate', function () {
 
   it('should annotate config', function () {
     var annotated = annotate(function () {
-      angular.module('myMod', []).
-        config(function (dep) {});
+        $angular.myMod.configs.push(function (dep) {});
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []).config([
+      angular.module('myMod').config([
         'dep',
         function (dep) {
         }
@@ -140,29 +133,10 @@ describe('annotate', function () {
 
   it('should annotate providers', function () {
     var annotated = annotate(function () {
-      angular.module('myMod', []).
-        provider('myService', function (dep) {});
+        $angular.myMod.providers.myService = function (dep) {};
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []).provider('myService', [
-        'dep',
-        function (dep) {
-        }
-      ]);
-    }));
-  });
-
-
-  it('should annotate declarations on modules being referenced', function () {
-    var annotated = annotate(function () {
-      angular.module('myMod', []);
-      angular.module('myMod').
-        provider('myService', function (dep) {});
-    });
-
-    annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []);
       angular.module('myMod').provider('myService', [
         'dep',
         function (dep) {
@@ -174,22 +148,22 @@ describe('annotate', function () {
 
   it('should not annotate constants', function () {
     var annotated = annotate(function () {
-      angular.module('myMod', []).constant('fortyTwo', 42);
+        $angular.myMod.constants.fortyTwo = 42;
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []).constant('fortyTwo', 42);
+      angular.module('myMod').constant('fortyTwo', 42);
     }));
   });
 
 
   it('should not annotate values', function () {
     var annotated = annotate(function () {
-      angular.module('myMod', []).value('fortyTwo', 42);
+        $angular.myMod.values.fortyTwo = 42;
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []).value('fortyTwo', 42);
+      angular.module('myMod').value('fortyTwo', 42);
     }));
   });
 
