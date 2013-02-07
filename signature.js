@@ -109,3 +109,62 @@ module.exports = [
     }
 ];
 
+module.exports.replace$angular = {
+    "type": "ExpressionStatement",
+    "expression": {
+        "type": "CallExpression",
+        "callee": {
+            "type": "MemberExpression",
+            "computed": false,
+            "object": {
+                "type": "CallExpression",
+                "callee": {
+                    "type": "MemberExpression",
+                    "computed": false,
+                    "object": {
+                        "type": "Identifier",
+                        "name": "angular"
+                    },
+                    "property": {
+                        "type": "Identifier",
+                        "name": "module"
+                    }
+                },
+                "arguments": [
+                    {
+                        "type": "Literal",
+                        "value": "XXX.XXX"
+                    }
+                ]
+            },
+            "property": {
+                "type": "Identifier",
+                "name": "XXXX"
+            }
+        },
+        "arguments": [
+            {
+                "type": "FunctionExpression",
+                "id": null,
+                "params": [
+                    {
+                        "type": "Identifier",
+                        "name": "foo"
+                    },
+                    {
+                        "type": "Identifier",
+                        "name": "bar"
+                    }
+                ],
+                "defaults": [],
+                "body": {
+                    "type": "BlockStatement",
+                    "body": []
+                },
+                "rest": null,
+                "generator": false,
+                "expression": false
+            }
+        ]
+    }
+}
