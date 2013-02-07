@@ -125,7 +125,7 @@ describe('annotate', function () {
   it('should annotate config', function () {
     var annotated = annotate(function () {
       angular.module('myMod', []).
-        config('myService', function (dep) {});
+        config(function (dep) {});
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
