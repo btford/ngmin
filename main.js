@@ -18,8 +18,9 @@ var annotateAST = function (syntax) {
         var originalFn, newParam;
         signatures.forEach(function(signature) {
             if (deepCompare(chunk, signature)) {
-                originalFn = chunk.expression.arguments[1];
-                newParam = chunk.expression.arguments[1] = {
+				var idx = chunk.expression.arguments.length - 1;
+                originalFn = chunk.expression.arguments[idx];
+                newParam = chunk.expression.arguments[idx] = {
                     type: 'ArrayExpression',
                     elements: []
                 };
