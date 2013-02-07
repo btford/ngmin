@@ -1,3 +1,4 @@
+// look for this structure in the AST
 module.exports = [
     // moduleVariable.service(...)
     {

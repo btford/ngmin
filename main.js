@@ -1,8 +1,8 @@
 
 var esprima = require('esprima'),
-  escodegen = require('escodegen'),
-  signatures = require('./signature'),
-  deepCompare = require('./util/deep-compare');
+    escodegen = require('escodegen'),
+    signatures = require('./signature'),
+    deepCompare = require('./util/deep-compare');
 
 
 /*
@@ -15,10 +15,10 @@ var annotateAST = function (syntax) {
 
     // rewrite each matching chunk
     syntax.body.forEach(function (chunk) {
-        var originalFn, newParam;
         signatures.forEach(function(signature) {
+            var originalFn, newParam;
             if (deepCompare(chunk, signature)) {
-				var idx = chunk.expression.arguments.length - 1;
+                var idx = chunk.expression.arguments.length - 1;
                 originalFn = chunk.expression.arguments[idx];
                 newParam = chunk.expression.arguments[idx] = {
                     type: 'ArrayExpression',
@@ -41,19 +41,19 @@ var annotateAST = function (syntax) {
  * Given a JavaScript string, annotate the injectable AngularJS module methods
  */
 var annotate = exports.annotate = function (inputCode) {
-  var syntax = esprima.parse(inputCode, {
-    tolerant: true
-  });
+    var syntax = esprima.parse(inputCode, {
+        tolerant: true
+    });
 
-  annotateAST(syntax);
+    annotateAST(syntax);
 
-  var generatedCode = escodegen.generate(syntax, {
-    format: {
-        indent: {
-            style: '    '
+    var generatedCode = escodegen.generate(syntax, {
+        format: {
+            indent: {
+                style: '  '
+            }
         }
-    }
-  });
+    });
 
-  return generatedCode;
+    return generatedCode;
 };
