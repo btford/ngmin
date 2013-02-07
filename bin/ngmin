@@ -26,7 +26,17 @@ if(infiles.length) {
 } else {
   process.stdin.resume();
   process.stdin.setEncoding('utf8');
-  content = fs.readSync(process.stdin.fd, 100000).shift();
+  try {
+	  content = fs.readSync(process.stdin.fd, 100000);
+  	  content = content.shift();
+ } catch (e) {
+   if(e.code == 'EAGAIN') {
+      console.error('Usage: <infiles or stdin> -o <outfile or stdout> ');
+      process.exit(0);
+   }
+   console.error('Error reading from stdin ', e);
+   process.exit(1);
+ }
 }
 var generatedCode = ngmin.annotate(content);
 
