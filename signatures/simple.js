@@ -1,5 +1,9 @@
 
-// look for this structure in the AST
+/*
+ * Simple AST structure to match against
+ * ex: `angular.module('whatevs').controller( ... )`
+ */
+
 var signature = module.exports = {
   "type": "ExpressionStatement",
   "expression": {
