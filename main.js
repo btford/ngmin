@@ -111,22 +111,20 @@ var annotateAST = function (syntax) {
 
   signatures.forEach(function (signature) {
     // rewrite each matching chunk
-    syntax.body.forEach(function (chunk) {
+    deepApply(syntax, signature, function (chunk) {
       var originalFn, newParam;
-      if (deepCompare(chunk, signature)) {
-        originalFn = chunk.expression.arguments[1];
-        newParam = chunk.expression.arguments[1] = {
-          type: 'ArrayExpression',
-          elements: []
-        };
-        originalFn.params.forEach(function (param) {
-          newParam.elements.push({
-            "type": "Literal",
-            "value": param.name
-          });
+      originalFn = chunk.expression.arguments[1];
+      newParam = chunk.expression.arguments[1] = {
+        type: 'ArrayExpression',
+        elements: []
+      };
+      originalFn.params.forEach(function (param) {
+        newParam.elements.push({
+          "type": "Literal",
+          "value": param.name
         });
-        newParam.elements.push(originalFn);
-      }
+      });
+      newParam.elements.push(originalFn);
     });
   });
 
