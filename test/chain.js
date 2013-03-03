@@ -25,8 +25,6 @@ describe('annotate', function () {
         service('MyCtrl', function ($scope) {});
     });
 
-    console.log(annotated);
-
     annotated.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).
         service('myService', ['dep', function (dep) {}]).
