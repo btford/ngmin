@@ -78,6 +78,7 @@ var annotateAST = function (syntax) {
   // look for `modRef.fn` in AST
   var signatures = [
   require('./signatures/simple'),
+  require('./signatures/config'),
   {
     "type": "ExpressionStatement",
     "expression": {
@@ -90,7 +91,7 @@ var annotateAST = function (syntax) {
         },
         "property": {
           "type": "Identifier",
-          "name": /^(controller|directive|filter|service|factory|decorator|config|provider)$/
+          "name": /^(controller|directive|filter|service|factory|decorator|provider)$/
         }
       },
       "arguments": [
@@ -106,18 +107,61 @@ var annotateAST = function (syntax) {
         }
       ]
     }
+  },
+  {
+    "type": "ExpressionStatement",
+    "expression": {
+      "type": "CallExpression",
+      "callee": {
+        "type": "MemberExpression",
+        "object": {
+          "type": "Identifier",
+          "name": new RegExp('^(' + modules.join('|') + ')$')
+        },
+        "property": {
+          "type": "Identifier",
+          "name": "config"
+        }
+      },
+      "arguments": [
+        {
+          "type": "FunctionExpression",
+          "body": {
+            "type": "BlockStatement",
+            "body": []
+          }
+        }
+      ]
+    }
   }
   ];
 
   signatures.forEach(function (signature) {
     // rewrite each matching chunk
     deepApply(syntax, signature, function (chunk) {
-      var originalFn, newParam;
-      originalFn = chunk.expression.arguments[1];
-      newParam = chunk.expression.arguments[1] = {
-        type: 'ArrayExpression',
-        elements: []
-      };
+      var originalFn,
+        newParam,
+        type;
+
+      try {
+        type = chunk.expression.callee.property.name;
+      }
+      catch (e) {}
+
+      if (type === 'config') {
+        originalFn = chunk.expression.arguments[0];
+        newParam = chunk.expression.arguments[0] = {
+          type: 'ArrayExpression',
+          elements: []
+        };
+      } else {
+        originalFn = chunk.expression.arguments[1];
+        newParam = chunk.expression.arguments[1] = {
+          type: 'ArrayExpression',
+          elements: []
+        };
+      }
+      
       originalFn.params.forEach(function (param) {
         newParam.elements.push({
           "type": "Literal",

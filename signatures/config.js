@@ -1,7 +1,7 @@
 
 /*
- * Simple AST structure to match against
- * ex: `angular.module('whatevs').controller( ... )`
+ * module.config AST structure to match against
+ * ex: `angular.config(function ( ... ) { ... })`
  */
 
 var signature = module.exports = {
@@ -26,13 +26,10 @@ var signature = module.exports = {
       },
       "property": {
         "type": "Identifier",
-        "name": /^(controller|directive|filter|service|factory|decorator|provider)$/
+        "name": "config"
       }
     },
     "arguments": [
-      {
-        "type": "Literal"
-      },
       {
         "type": "FunctionExpression",
         "body": {
