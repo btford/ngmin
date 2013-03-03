@@ -52,5 +52,15 @@ describe('annotate', function () {
     }));
   });
 
+  it('should not annotate declarations on non-module objects', function () {
+    var fn = function () {
+      var myMod, myOtherMod;
+      myMod = angular.module('myMod', []);
+      myOtherMod.controller('MyCtrl', function ($scope) {});
+    };
+    var annotated = annotate(fn);
+    annotated.should.equal(stringifyFunctionBody(fn));
+  });
+
 
 });
