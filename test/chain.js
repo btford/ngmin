@@ -32,6 +32,24 @@ describe('annotate', function () {
     }));
   });
 
+  it('should annotate multiple chained declarations', function () {
+    var annotated = annotate(function () {
+      angular.module('myMod', []).
+        service('myService', function (dep) {}).
+        service('myService2', function (dep) {}).
+        service('myService3', function (dep) {}).
+        service('MyCtrl', function ($scope) {});
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      angular.module('myMod', []).
+        service('myService', ['dep', function (dep) {}]).
+        service('myService2', ['dep', function (dep) {}]).
+        service('myService3', ['dep', function (dep) {}]).
+        service('MyCtrl', ['$scope', function ($scope) {}]);
+    }));
+  });
+
   //TODO: test refs + chaining
 
 });
