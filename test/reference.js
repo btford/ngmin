@@ -9,7 +9,7 @@
 var assert = require('should');
 
 // so we don't have to put the stuff we're testing into a string
-var stringifyFunctionBody = require('./util.js').stringifyFunctionBody;
+var stringifyFunctionBody = require('./util').stringifyFunctionBody;
 var annotate = function (arg) {
   return require('../main').annotate(
     stringifyFunctionBody(arg));
@@ -51,6 +51,26 @@ describe('annotate', function () {
       ]);
     }));
   });
+
+  it('should annotate declarations on referenced modules ad infinitum', function () {
+    var annotated = annotate(function () {
+      var myMod = angular.module('myMod', []);
+      var myMod2 = myMod, myMod3;
+      myMod3 = myMod2;
+      myMod3.controller('MyCtrl', function ($scope) {});
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      var myMod = angular.module('myMod', []);
+      myMod.controller('MyCtrl', [
+        '$scope',
+        function ($scope) {
+        }
+      ]);
+    }));
+  });
+
+  // TODO: it should annotate silly assignment chains
 
   it('should not annotate declarations on non-module objects', function () {
     var fn = function () {

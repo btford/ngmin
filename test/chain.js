@@ -9,7 +9,7 @@
 var assert = require('should');
 
 // so we don't have to put the stuff we're testing into a string
-var stringifyFunctionBody = require('./util.js').stringifyFunctionBody;
+var stringifyFunctionBody = require('./util').stringifyFunctionBody;
 var annotate = function (arg) {
   return require('../main').annotate(
     stringifyFunctionBody(arg));
@@ -31,5 +31,7 @@ describe('annotate', function () {
         service('MyCtrl', ['$scope', function ($scope) {}]);
     }));
   });
+
+  //TODO: test refs + chaining
 
 });

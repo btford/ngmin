@@ -4,42 +4,40 @@
  * ex: `angular.module('whatevs').controller( ... )`
  */
 
-var signature = module.exports = {
-  "type": "ExpressionStatement",
-  "expression": {
-    "type": "CallExpression",
-    "callee": {
-      "type": "MemberExpression",
-      "object": {
-        "type": "CallExpression",
-        "callee": {
-          "type": "MemberExpression",
-          "object": {
-            "type": "Identifier",
-            "name": "angular"
-          },
-          "property": {
-            "type": "Identifier",
-            "name": "module"
-          }
-        }
-      },
-      "property": {
-        "type": "Identifier",
-        "name": /^(controller|directive|filter|service|factory|decorator|provider)$/
-      }
+module.exports = [{
+  "type": "CallExpression",
+  "callee": {
+    "type": "MemberExpression",
+    "object": {
+      "ngModule": true
     },
-    "arguments": [
-      {
-        "type": "Literal"
-      },
-      {
-        "type": "FunctionExpression",
-        "body": {
-          "type": "BlockStatement",
-          "body": []
-        }
-      }
-    ]
-  }
-};
+    "property": {
+      "type": "Identifier",
+      "name": /^(controller|directive|filter|service|factory|decorator|provider)$/
+    }
+  },
+  "arguments": [
+    {},
+    {
+      "type": "FunctionExpression"
+    }
+  ]
+},
+{
+  "type": "CallExpression",
+  "callee": {
+    "type": "MemberExpression",
+    "object": {
+      "ngModule": true
+    },
+    "property": {
+      "type": "Identifier",
+      "name": "config"
+    }
+  },
+  "arguments": [
+    {
+      "type": "FunctionExpression"
+    }
+  ]
+}];

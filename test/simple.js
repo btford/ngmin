@@ -8,7 +8,7 @@
 var assert = require('should');
 
 // so we don't have to put the stuff we're testing into a string
-var stringifyFunctionBody = require('./util.js').stringifyFunctionBody;
+var stringifyFunctionBody = require('./util').stringifyFunctionBody;
 var annotate = function (arg) {
   return require('../main').annotate(
     stringifyFunctionBody(arg));
@@ -20,13 +20,16 @@ describe('annotate', function () {
   it('should annotate controllers', function () {
     var annotated = annotate(function () {
       angular.module('myMod', []).
-        controller('MyCtrl', function ($scope) {});
+        controller('MyCtrl', function ($scope) {
+          $scope.foo = 'bar';
+        });
     });
 
     annotated.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).controller('MyCtrl', [
         '$scope',
         function ($scope) {
+          $scope.foo = 'bar';
         }
       ]);
     }));
@@ -172,25 +175,34 @@ describe('annotate', function () {
   });
 
 
-  it('should not annotate constants', function () {
-    var annotated = annotate(function () {
-      angular.module('myMod', []).constant('fortyTwo', 42);
-    });
+  it('should not annotate declarations with no dependencies', function () {
+    var fn = function () {
+      angular.module('myMod', []).
+        provider('myService', function () {});
+    };
+    var annotated = annotate(fn);
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.should.equal(stringifyFunctionBody(fn));
+  });
+
+
+  it('should not annotate constants', function () {
+    var fn = function () {
       angular.module('myMod', []).constant('fortyTwo', 42);
-    }));
+    };
+
+    var annotated = annotate(fn);
+    annotated.should.equal(stringifyFunctionBody(fn));
   });
 
 
   it('should not annotate values', function () {
-    var annotated = annotate(function () {
+    var fn = function () {
       angular.module('myMod', []).value('fortyTwo', 42);
-    });
+    };
 
-    annotated.should.equal(stringifyFunctionBody(function () {
-      angular.module('myMod', []).value('fortyTwo', 42);
-    }));
+    var annotated = annotate(fn);
+    annotated.should.equal(stringifyFunctionBody(fn));
   });
 
 });
