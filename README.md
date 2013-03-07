@@ -1,7 +1,7 @@
 # ngmin
 [![Build Status](https://travis-ci.org/btford/ngmin.png?branch=master)](https://travis-ci.org/btford/ngmin)
 
-ngmin is an _experimental_ AngularJS application minifier. Experimental means this **should not** yet be used in production, but you **should** try it out and let me know what you think. The goal is ultimately to use this alongside yeoman and grunt to make developing and building Angular apps fast, easy, and fun.
+ngmin is an AngularJS application pre-minifier. The goal is ultimately to use this alongside yeoman and grunt to make developing and building Angular apps fast, easy, and fun.
 
 ## Installation
 Install via npm:
@@ -11,14 +11,16 @@ npm install -g ngmin
 
 ## CLI Usage
 
+Ideally, you should concat all of your files, then run `ngmin` once on the concatenated file.
+
 ```bash
 ngmin somefile.js somefile.annotate.js
 ```
 
-From here, you can concat and pass the annotated files to a minifier. Future versions of ngmin will include a minifier, probably based on Google Closure Compiler.
+From here, the annotated file(s) to a minifier.
 
 ## Conventions
-ngmin does not currently attempt to be fully generalized. If you follow these conventions, which are largely the same as what the AngularJS Yeoman generators are configured to do, you should be fine.
+`ngmin` does not currently attempt to be fully generalized, and might not work if you're too clever. If you follow these conventions, which are the same as what the AngularJS Yeoman generator defaults, you should be fine.
 
 ### Module Declaration
 
@@ -41,10 +43,50 @@ This should work for all injectable APIs.
 
 ```javascript
 // like this
-angular.module('myModuleName').service('MyCtrl', function ($scope) {
+angular.module('myModuleName').service('myService', function ($scope) {
   // ...
 });
 ```
+
+### Chaining
+You can methods like this, and `ngmin` should still work fine:
+
+```javascript
+// like this
+angular.module('myModuleName').
+  service('myFirstService', function ($scope) {
+    // ...
+  }).
+  service('mySecondService', function ($scope) {
+    // ...
+  });
+```
+
+This works with all injectable APIs.
+
+### References
+This is not the preferred way of dealing with modules, and thus support for it isn't completely comprehensive. Something like this will work:
+```javascript
+var myMod = angular.module('myMod', []);
+myMod.service('myService', function ($scope) {
+  // ...
+});
+```
+
+But something like this will probably fail spectacularly:
+```javascript
+var myMod = angular.module('myMod', []);
+var mod1, mod2, mod3;
+mod1 = myMod;
+mod3 = (function () {
+  return mod2 = mod1;
+}());
+mod3.service('myService', function ($scope) {
+  // ...
+});
+```
+
+Please don't write code like the second example. :)
 
 ## Conceptual Overview
 AngularJS's DI system inspects function parameters to determine what to inject:
@@ -64,7 +106,7 @@ someModule.factory('myFactory', function (a) {
 });
 ```
 
-To overcome this, AngularJS has a minifier-safe "inline" notation (see [Inline Annotation](http://docs.angularjs.org/guide/di) in the docs) that annotates `angular.controller`, `angular.service`, `angular.factory` with an array of dependencies' names as strings:
+To overcome this, AngularJS has a "minifier-safe inline" notation (see [Inline Annotation](http://docs.angularjs.org/guide/di) in the docs) that annotates `angular.controller`, `angular.service`, `angular.factory` with an array of dependencies' names as strings:
 ```javascript
 // angular knows to inject "myService" based on the parameter in "myFactory"
 someModule.factory('myFactory', ['myService', function (myService) {
