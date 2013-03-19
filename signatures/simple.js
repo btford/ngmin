@@ -32,7 +32,7 @@ module.exports = [{
     },
     "property": {
       "type": "Identifier",
-      "name": "config"
+      "name": /^(config|run)$/
     }
   },
   "arguments": [

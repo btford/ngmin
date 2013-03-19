@@ -141,6 +141,22 @@ describe('annotate', function () {
   });
 
 
+  it('should annotate run', function () {
+    var annotated = annotate(function () {
+      angular.module('myMod', []).
+        run(function (dep) {});
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      angular.module('myMod', []).run([
+        'dep',
+        function (dep) {
+        }
+      ]);
+    }));
+  });
+
+
   it('should annotate providers', function () {
     var annotated = annotate(function () {
       angular.module('myMod', []).
