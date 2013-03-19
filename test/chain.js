@@ -50,6 +50,18 @@ describe('annotate', function () {
     }));
   });
 
-  //TODO: test refs + chaining
+  it('should annotate refs that have been chained', function () {
+    var annotated = annotate(function () {
+      var mod =  angular.module('chain', []);
+      mod.factory('a', function ($scope){}).
+        factory('b', function ($scope){});
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      var mod =  angular.module('chain', []);
+      mod.factory('a', ['$scope', function($scope){}]).
+        factory('b', ['$scope', function($scope){}]);
+    }));
+  });
 
 });
