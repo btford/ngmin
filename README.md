@@ -3,11 +3,29 @@
 
 ngmin is an AngularJS application pre-minifier. The goal is ultimately to use this alongside yeoman and grunt to make developing and building Angular apps fast, easy, and fun.
 
+## tl;dr
+Turns this
+
+```
+angular.module('whatever').controller('MyCtrl', function ($scope, $http) { ... });
+```
+
+into
+
+```
+angular.module('whatever').controller('MyCtrl', ['$scope', '$http', function ($scope, $http) { ... }]);
+```
+
+so that minifiers can handle AngularJS's DI annotations and you can save a few keystrokes.
+
 ## Installation
 Install via npm:
 ```bash
 npm install -g ngmin
 ```
+
+## Grunt Task
+`ngmin` is available as a [Grunt](http://gruntjs.com/) task as [`grunt-ngmin`](https://github.com/btford/grunt-ngmin).
 
 ## CLI Usage
 
