@@ -12,7 +12,7 @@ var annotate = exports.annotate = function (inputCode) {
     tolerant: true
   });
 
-  markASTModules(syntax);
+  while (markASTModules(syntax)) {}
   annotateAST(syntax);
 
   var generatedCode = escodegen.generate(syntax, {
