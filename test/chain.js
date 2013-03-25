@@ -64,4 +64,18 @@ describe('annotate', function () {
     }));
   });
 
+  it('should annotate refs to chains', function () {
+    var annotated = annotate(function () {
+      var mod =  angular.module('chain', []).
+        factory('a', function ($scope){});
+      mod.factory('b', function ($scope){});
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      var mod =  angular.module('chain', []).
+        factory('a', ['$scope', function($scope){}]);
+      mod.factory('b', ['$scope', function($scope){}]);
+    }));
+  });
+
 });
