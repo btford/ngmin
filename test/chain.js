@@ -50,6 +50,60 @@ describe('annotate', function () {
     }));
   });
 
+  it('should annotate multiple chained declarations on constants', function() {
+    var annotated = annotate(function () {
+      angular.module('myMod', []).
+        constant('myConstant', 'someConstant').
+        constant('otherConstant', 'otherConstant').
+        service('myService1', function (dep) {}).
+        service('MyCtrl', function ($scope) {});
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      angular.module('myMod', []).
+        constant('myConstant', 'someConstant').
+        constant('otherConstant', 'otherConstant').
+        service('myService1', ['dep', function (dep) {}]).
+        service('MyCtrl', ['$scope', function ($scope) {}]);
+    }));
+  });
+
+  it('should annotate multiple chained declarations on values', function() {
+    var annotated = annotate(function () {
+      angular.module('myMod', []).
+        value('myConstant', 'someConstant').
+        value('otherConstant', 'otherConstant').
+        service('myService1', function (dep) {}).
+        service('MyCtrl', function ($scope) {});
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      angular.module('myMod', []).
+        value('myConstant', 'someConstant').
+        value('otherConstant', 'otherConstant').
+        service('myService1', ['dep', function (dep) {}]).
+        service('MyCtrl', ['$scope', function ($scope) {}]);
+    }));
+  });
+
+  it('should annotate multiple chained declarations on constants and value regardless of order', function() {
+    var annotated = annotate(function () {
+      angular.module('myMod', []).
+        value('myConstant', 'someConstant').
+        service('myService1', function (dep) {}).
+        constant('otherConstant', 'otherConstant').
+        service('MyCtrl', function ($scope) {});
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      angular.module('myMod', []).
+        value('myConstant', 'someConstant').
+        service('myService1', ['dep', function (dep) {}]).
+        constant('otherConstant', 'otherConstant').
+        service('MyCtrl', ['$scope', function ($scope) {}]);
+    }));
+  });
+
   it('should annotate refs that have been chained', function () {
     var annotated = annotate(function () {
       var mod =  angular.module('chain', []);

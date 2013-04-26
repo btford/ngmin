@@ -8,7 +8,8 @@
   "dependencies": {
     "escodegen": "~0.0.15",
     "esprima": "~1.0.2",
-    "commander": "~1.1.1"
+    "commander": "~1.1.1",
+    "clone": "~0.1.6"
   },
   "devDependencies": {
     "should": "~1.2.1",

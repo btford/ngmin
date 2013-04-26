@@ -4,7 +4,23 @@
  * ex: `angular.module('whatevs').controller( ... )`
  */
 
-module.exports = [{
+module.exports = [
+
+{
+  "type": "CallExpression",
+  "callee": {
+    "type": "MemberExpression",
+    "object": {
+      "ngModule": true
+    },
+    "property": {
+      "type": "Identifier",
+      "name": /^(constant|value)$/
+    }
+  }
+},
+
+{
   "type": "CallExpression",
   "callee": {
     "type": "MemberExpression",
@@ -23,6 +39,7 @@ module.exports = [{
     }
   ]
 },
+
 {
   "type": "CallExpression",
   "callee": {
@@ -40,4 +57,6 @@ module.exports = [{
       "type": "FunctionExpression"
     }
   ]
-}];
+}
+
+];
