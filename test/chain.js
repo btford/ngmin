@@ -66,8 +66,26 @@ describe('annotate', function () {
         service('myService1', ['dep', function (dep) {}]).
         service('MyCtrl', ['$scope', function ($scope) {}]);
     }));
-
   });
+
+  it('should annotate multiple chained delcarations on values', function() {
+    var annotated = annotate(function () {
+      angular.module('myMod', []).
+        value('myConstant', 'someConstant').
+        value('otherConstant', 'otherConstant').
+        service('myService1', function (dep) {}).
+        service('MyCtrl', function ($scope) {});
+    });
+            
+    annotated.should.equal(stringifyFunctionBody(function () {
+      angular.module('myMod', []).
+        value('myConstant', 'someConstant').
+        value('otherConstant', 'otherConstant').
+        service('myService1', ['dep', function (dep) {}]).
+        service('MyCtrl', ['$scope', function ($scope) {}]);
+    }));
+  });
+
 
   it('should annotate refs that have been chained', function () {
     var annotated = annotate(function () {
