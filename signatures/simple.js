@@ -4,8 +4,7 @@
  * ex: `angular.module('whatevs').controller( ... )`
  */
 
-module.exports = [
-  {
+var constantOrValue = {
   "type": "CallExpression",
   "callee": {
     "type": "MemberExpression",
@@ -21,7 +20,10 @@ module.exports = [
     {},
     {}
   ]
-},
+};
+
+module.exports = [
+constantOrValue,
 {
   "type": "CallExpression",
   "callee": {
@@ -58,4 +60,6 @@ module.exports = [
       "type": "FunctionExpression"
     }
   ]
-}];
+},
+constantOrValue
+];
