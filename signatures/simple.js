@@ -40,4 +40,21 @@ module.exports = [{
       "type": "FunctionExpression"
     }
   ]
+}, 
+{
+  "type": "CallExpression",
+  "callee": {
+    "type": "MemberExpression",
+    "object": {
+      "ngModule": true
+    },
+    "property": {
+      "type": "Identifier",
+      "name": /^(constant)$/
+    }
+  },
+  "arguments": [
+    {},
+    {}
+  ]
 }];
