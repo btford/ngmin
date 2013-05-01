@@ -37,6 +37,12 @@ ngmin somefile.js somefile.annotate.js
 
 From here, the annotated file(s) to a minifier.
 
+`ngmin` also accepts stdio. The following is the same as above:
+
+```bash
+ngmin < somefile.js > somefile.annotate.js
+```
+
 ## Conventions
 `ngmin` does not currently attempt to be fully generalized, and might not work if you're too clever. If you follow these conventions, which are the same as what the AngularJS Yeoman generator defaults, you should be fine.
 
