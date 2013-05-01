@@ -1,7 +1,7 @@
 {
   "name": "ngmin",
   "description": "AngularJS Minifier",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "author": "Brian Ford",
   "license": "MIT",
   "main": "main.js",
