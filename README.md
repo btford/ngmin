@@ -27,6 +27,10 @@ npm install -g ngmin
 ## Grunt Task
 `ngmin` is available as a [Grunt](http://gruntjs.com/) task as [`grunt-ngmin`](https://github.com/btford/grunt-ngmin).
 
+## Rails (Asset Pipeline)
+
+`ngmin` is available for Rails via [`ngmin-rails`](http://rubygems.org/gems/ngmin-rails).
+
 ## CLI Usage
 
 Ideally, you should concat all of your files, then run `ngmin` once on the concatenated file.
