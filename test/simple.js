@@ -157,7 +157,7 @@ describe('annotate', function () {
   });
 
 
-  it('should annotate providers', function () {
+  it('should annotate providers defined by functions', function () {
     var annotated = annotate(function () {
       angular.module('myMod', []).
         provider('myService', function (dep) {
@@ -172,6 +172,23 @@ describe('annotate', function () {
           this.$get = ['otherDep', function(otherDep) {}];
         }
       ]);
+    }));
+  });
+
+
+  it('should annotate providers defined by objects', function () {
+    var annotated = annotate(function () {
+      angular.module('myMod', []).
+        provider('myService', {
+          $get: function(otherDep) {}
+        })
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      angular.module('myMod', []).
+        provider('myService', {
+          $get: ['otherDep', function(otherDep) {}]
+        });
     }));
   });
 
