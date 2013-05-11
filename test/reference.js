@@ -52,6 +52,22 @@ describe('annotate', function () {
     }));
   });
 
+  it('should annotate object-defined providers on referenced modules', function () {
+    var annotated = annotate(function () {
+      var myMod;
+      myMod = angular.module('myMod', []);
+      myMod.provider('MyService', { $get: function(service) {} });
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      var myMod;
+      myMod = angular.module('myMod', []);
+      myMod.provider('MyService', {
+        $get: ['service', function(service) {}]
+      });
+    }));
+  });
+
   // TODO: lol commenting out test cases
   /*
   it('should annotate declarations on referenced modules ad infinitum', function () {

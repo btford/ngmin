@@ -49,6 +49,26 @@ module.exports = [
     },
     "property": {
       "type": "Identifier",
+      "name": "provider"
+    }
+  },
+  "arguments": [
+    {},
+    {
+      "type": "ObjectExpression"
+    }
+  ]
+},
+
+{
+  "type": "CallExpression",
+  "callee": {
+    "type": "MemberExpression",
+    "object": {
+      "ngModule": true
+    },
+    "property": {
+      "type": "Identifier",
       "name": /^(config|run)$/
     }
   },
