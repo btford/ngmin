@@ -1,21 +1,20 @@
 
 var esprima = require('esprima'),
   escodegen = require('escodegen'),
-  markASTModules = require('./lib/mark-ast-modules'),
-  annotateAST = require('./lib/annotate-ast');
+  astral = require('astral')();
 
-/*
- * Given a JavaScript string, annotate the injectable AngularJS module methods
- */
+// register angular annotator in astral
+require('astral-angular-annotate')(astral);
+
 var annotate = exports.annotate = function (inputCode) {
-  var syntax = esprima.parse(inputCode, {
+
+  var ast = esprima.parse(inputCode, {
     tolerant: true
   });
 
-  while (markASTModules(syntax)) {}
-  annotateAST(syntax);
+  astral.run(ast);
 
-  var generatedCode = escodegen.generate(syntax, {
+  var generatedCode = escodegen.generate(ast, {
     format: {
       indent: {
         style: '  '
