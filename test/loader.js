@@ -23,7 +23,7 @@ describe('annotate', function () {
       });
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       define(["./thing"], function(thing) {
         angular.module('myMod', []).
           controller('MyCtrl', ['$scope', function ($scope) {}]);
@@ -43,7 +43,7 @@ describe('annotate', function () {
 
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       define(["./thing"], function(thing) {
         var myMod = angular.module('myMod', []);
         myMod.controller('MyCtrl', ['$scope', function ($scope) {}]);

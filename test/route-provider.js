@@ -33,7 +33,7 @@ describe('annotate', function () {
         });
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).
         config(['$routeProvider', function ($routeProvider) {
           $routeProvider.when('path', {
@@ -64,7 +64,7 @@ describe('annotate', function () {
         });
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).
         config(['$routeProvider', function ($routeProvider) {
           $routeProvider.

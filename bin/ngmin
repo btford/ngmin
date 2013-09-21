@@ -7,12 +7,21 @@ var program = require('commander'),
 program
   .version(require('../package.json').version)
   .usage('<infile> <outfile>')
+  .option('|--source-map <path>', "Specify an output file where to generate source map.", null)
+  .option('|--source-map-root <path>', "The path to the original source to be included in the source map.", null)
+  .option('|--in-source-map <path>', "Input source map, useful if you're compressing JS that was generated from some other original code.", null) 
   .parse(process.argv);
 
 if (program.args.length !== 0 && program.args.length !== 2) {
   console.error('ngmin should be called with an input and output file, or no arguments if using stdio');
   process.exit(1);
 }
+
+var options = {
+  sourceMap: program.sourceMap,
+  sourceMapRoot: program.sourceMapRoot,
+  sourceMapIn: program.inSourceMap
+};
 
 if (program.args.length === 2) {
   var infile = program.args[0];
@@ -24,15 +33,22 @@ if (program.args.length === 2) {
     console.error('Error opening: ' + infile);
     process.exit(1);
   }
-  var generatedCode = ngmin.annotate(content);
+  var generated = ngmin.annotate(content, options);
 
   try {
-    fs.writeFileSync(outfile, generatedCode);
+    fs.writeFileSync(outfile, generated.code);
   } catch (e) {
     console.error('Error writing to: ' + outfile);
     process.exit(1);
   }
-
+  if (generated.map) {
+    try {
+      fs.writeFileSync(options.sourceMap, generated.map);
+    } catch (e) {
+      console.error('Error writing to: ' + options.sourceMap);
+      process.exit(1);
+    }
+  }
 } else {
   // else use stdio
   var buffer = '';
@@ -45,6 +61,15 @@ if (program.args.length === 2) {
   });
 
   process.stdin.on('end', function() {
-    process.stdout.write(ngmin.annotate(buffer));
+    var generated = ngmin.annotate(buffer, options);
+    process.stdout.write(generated.code);
+    if (generated.map) {
+      try {
+        fs.writeFileSync(options.sourceMap, generated.map);
+      } catch (e) {
+        console.error('Error writing to: ' + options.sourceMap);
+        process.exit(1);
+      }
+    }
   });
 }

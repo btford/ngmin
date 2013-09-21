@@ -25,7 +25,7 @@ describe('annotate', function () {
         });
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).controller('MyCtrl', [
         '$scope',
         function ($scope) {
@@ -47,7 +47,7 @@ describe('annotate', function () {
         });
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).directive('myDirective', [
         '$rootScope',
         function ($rootScope) {
@@ -67,7 +67,7 @@ describe('annotate', function () {
         filter('myFilter', function (dep) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).filter('myFilter', [
         'dep',
         function (dep) {
@@ -83,7 +83,7 @@ describe('annotate', function () {
         service('myService', function (dep) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).service('myService', [
         'dep',
         function (dep) {
@@ -99,7 +99,7 @@ describe('annotate', function () {
         controller('factory', function (dep) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).controller('factory', [
         'dep',
         function (dep) {
@@ -115,7 +115,7 @@ describe('annotate', function () {
         decorator('myService', function (dep) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).decorator('myService', [
         'dep',
         function (dep) {
@@ -131,7 +131,7 @@ describe('annotate', function () {
         config(function (dep) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).config([
         'dep',
         function (dep) {
@@ -147,7 +147,7 @@ describe('annotate', function () {
         run(function (dep) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).run([
         'dep',
         function (dep) {
@@ -165,7 +165,7 @@ describe('annotate', function () {
         });
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).provider('myService', [
         'dep',
         function (dep) {
@@ -184,7 +184,7 @@ describe('annotate', function () {
         })
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).
         provider('myService', {
           $get: ['otherDep', function(otherDep) {}]
@@ -200,7 +200,7 @@ describe('annotate', function () {
         provider('myService', function (dep) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []);
       angular.module('myMod').provider('myService', [
         'dep',
@@ -218,7 +218,7 @@ describe('annotate', function () {
     };
     var annotated = annotate(fn);
 
-    annotated.should.equal(stringifyFunctionBody(fn));
+    annotated.code.should.equal(stringifyFunctionBody(fn));
   });
 
 
@@ -228,7 +228,7 @@ describe('annotate', function () {
     };
 
     var annotated = annotate(fn);
-    annotated.should.equal(stringifyFunctionBody(fn));
+    annotated.code.should.equal(stringifyFunctionBody(fn));
   });
 
 
@@ -238,7 +238,7 @@ describe('annotate', function () {
     };
 
     var annotated = annotate(fn);
-    annotated.should.equal(stringifyFunctionBody(fn));
+    annotated.code.should.equal(stringifyFunctionBody(fn));
   });
 
 });
