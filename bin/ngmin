@@ -26,6 +26,7 @@ var options = {
 if (program.args.length === 2) {
   var infile = program.args[0];
   var outfile = program.args[1];
+  options.sourceFile = infile;
 
   try {
     var content = fs.readFileSync(infile, 'utf-8');
@@ -36,6 +37,9 @@ if (program.args.length === 2) {
   var generated = ngmin.annotate(content, options);
 
   try {
+    if (generated.map) {
+      generated.code += '\n\n//# sourceMappingURL='+options.sourceMap+'\n';
+    }
     fs.writeFileSync(outfile, generated.code);
   } catch (e) {
     console.error('Error writing to: ' + outfile);
@@ -62,6 +66,9 @@ if (program.args.length === 2) {
 
   process.stdin.on('end', function() {
     var generated = ngmin.annotate(buffer, options);
+    if (generated.map) {
+      generated.code += '\n\n//# sourceMappingURL='+options.sourceMap+'\n';
+    }
     process.stdout.write(generated.code);
     if (generated.map) {
       try {
