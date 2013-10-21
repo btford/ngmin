@@ -7,7 +7,7 @@
   "main": "main.js",
   "dependencies": {
     "astral": "~0.1.0",
-    "astral-angular-annotate": "~0.0.1",
+    "astral-angular-annotate": "git@github.com:SvenMeyer-zanox/astral-angular-annotate.git",
     "escodegen": "~0.0.15",
     "esprima": "~1.0.2",
     "commander": "~1.1.1",
