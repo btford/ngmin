@@ -24,7 +24,7 @@ describe('annotate', function () {
       myMod.controller('MyCtrl', function ($scope) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       var myMod = angular.module('myMod', []);
       myMod.controller('MyCtrl', [
         '$scope',
@@ -41,7 +41,7 @@ describe('annotate', function () {
       myMod.controller('MyCtrl', function ($scope) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       var myMod;
       myMod = angular.module('myMod', []);
       myMod.controller('MyCtrl', [
@@ -59,7 +59,7 @@ describe('annotate', function () {
       myMod.provider('MyService', { $get: function(service) {} });
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       var myMod;
       myMod = angular.module('myMod', []);
       myMod.provider('MyService', {
@@ -78,7 +78,7 @@ describe('annotate', function () {
       myMod3.controller('MyCtrl', function ($scope) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       var myMod = angular.module('myMod', []);
       var myMod2 = myMod, myMod3;
       myMod3 = myMod2;
@@ -96,7 +96,7 @@ describe('annotate', function () {
       myOtherMod.controller('MyCtrl', function ($scope) {});
     };
     var annotated = annotate(fn);
-    annotated.should.equal(stringifyFunctionBody(fn));
+    annotated.code.should.equal(stringifyFunctionBody(fn));
   });
 
 

@@ -31,7 +31,7 @@ describe('annotate', function () {
         });
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).
         directive('myDir', function () {
           return {
@@ -54,7 +54,7 @@ describe('annotate', function () {
         });
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).
         directive('myDir', ['$window', function ($window) {
           return {

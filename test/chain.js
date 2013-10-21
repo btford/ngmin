@@ -25,7 +25,7 @@ describe('annotate', function () {
         service('MyCtrl', function ($scope) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).
         service('myService', ['dep', function (dep) {}]).
         service('MyCtrl', ['$scope', function ($scope) {}]);
@@ -41,7 +41,7 @@ describe('annotate', function () {
         service('MyCtrl', function ($scope) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).
         service('myService', ['dep', function (dep) {}]).
         service('myService2', ['dep', function (dep) {}]).
@@ -59,7 +59,7 @@ describe('annotate', function () {
         service('MyCtrl', function ($scope) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).
         constant('myConstant', 'someConstant').
         constant('otherConstant', 'otherConstant').
@@ -77,7 +77,7 @@ describe('annotate', function () {
         service('MyCtrl', function ($scope) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).
         value('myConstant', 'someConstant').
         value('otherConstant', 'otherConstant').
@@ -95,7 +95,7 @@ describe('annotate', function () {
         service('MyCtrl', function ($scope) {});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       angular.module('myMod', []).
         value('myConstant', 'someConstant').
         service('myService1', ['dep', function (dep) {}]).
@@ -111,7 +111,7 @@ describe('annotate', function () {
         factory('b', function ($scope){});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       var mod =  angular.module('chain', []);
       mod.factory('a', ['$scope', function($scope){}]).
         factory('b', ['$scope', function($scope){}]);
@@ -125,7 +125,7 @@ describe('annotate', function () {
       mod.factory('b', function ($scope){});
     });
 
-    annotated.should.equal(stringifyFunctionBody(function () {
+    annotated.code.should.equal(stringifyFunctionBody(function () {
       var mod =  angular.module('chain', []).
         factory('a', ['$scope', function($scope){}]);
       mod.factory('b', ['$scope', function($scope){}]);
