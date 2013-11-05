@@ -99,5 +99,22 @@ describe('annotate', function () {
     annotated.should.equal(stringifyFunctionBody(fn));
   });
 
+  it('should keep comments', function() {
+    var annotated = annotate(function () {
+      var myMod = angular.module('myMod', []);
+      /*! license */
+      myMod.controller('MyCtrl', function ($scope) {});
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      var myMod = angular.module('myMod', []);
+      /*! license */
+      myMod.controller('MyCtrl', [
+        '$scope',
+        function ($scope) {
+        }
+      ]);
+    }));
+  });
 
 });
