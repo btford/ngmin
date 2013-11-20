@@ -28,6 +28,11 @@ describe('annotate', function () {
           $routeProvider.when('path', {
             controller: function ($scope) {
               $scope.works = true;
+            },
+            resolve: {
+              data: function ($http) {
+                return $http.get('test.json');
+              }
             }
           });
         });
@@ -39,12 +44,16 @@ describe('annotate', function () {
           $routeProvider.when('path', {
             controller: ['$scope', function ($scope) {
               $scope.works = true;
-            }]
+            }],
+            resolve: {
+              data: ['$http', function ($http) {
+                return $http.get('test.json');
+              }]
+            }
           });
         }]);
     }));
   });
-
 
   it('should annotate chained $routeProvider.when()', function () {
     var annotated = annotate(function () {
