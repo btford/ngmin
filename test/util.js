@@ -18,16 +18,23 @@ exports.stringifyFunctionBody = function (fn) {
     replace(trailingBrace, '');
 
   // then normalize with esprima/escodegen
-  out = escodegen.generate(
-    esprima.parse(out, {
-      tolerant: true
-    }), {
-      format: {
-        indent: {
-          style: '  '
-        }
+  var ast = esprima.parse(out, {
+    tolerant: true,
+    comment: true,
+    range: true,
+    tokens: true
+  });
+  // TODO: unstable API, see https://github.com/Constellation/escodegen/issues/10
+  ast = escodegen.attachComments(ast, ast.comments, ast.tokens);
+
+  out = escodegen.generate(ast, {
+    format: {
+      indent: {
+        style: '  '
       }
-    });
+    },
+    comment: true
+  });
 
   return out;
 };
