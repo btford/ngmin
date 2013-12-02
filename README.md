@@ -27,9 +27,15 @@ npm install -g ngmin
 ## Grunt Task
 `ngmin` is available as a [Grunt](http://gruntjs.com/) task as [`grunt-ngmin`](https://github.com/btford/grunt-ngmin).
 
-## Rails (Asset Pipeline)
+## Asset Pipelines
+
+### Ruby on Rails
 
 `ngmin` is available for Rails via [`ngmin-rails`](http://rubygems.org/gems/ngmin-rails).
+
+### Clojure Ring
+
+`ngmin` is available for Clojure Ring via [`optimus-angular`](https://github.com/magnars/optimus-angular) as an [`Optimus`](https://github.com/magnars/optimus) asset middleware.
 
 ## CLI Usage
 
