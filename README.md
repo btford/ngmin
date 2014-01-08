@@ -24,8 +24,10 @@ Install via npm:
 npm install -g ngmin
 ```
 
-## Grunt Task
-`ngmin` is available as a [Grunt](http://gruntjs.com/) task as [`grunt-ngmin`](https://github.com/btford/grunt-ngmin).
+## Build Systems
+
+- [grunt-ngmin](https://github.com/btford/grunt-ngmin)
+- [gulp-ngmin](https://github.com/sindresorhus/gulp-ngmin)
 
 ## Asset Pipelines
 
