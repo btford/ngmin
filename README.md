@@ -160,5 +160,5 @@ someModule.factory('myFactory', ['myService', function (a) {
 
 Writing the "minifier-safe" version by hand is kind of annoying because you have to keep both the array of dependency names and function parameters in sync.
 
-## Licence
+## License
 MIT
