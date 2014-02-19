@@ -28,6 +28,7 @@ npm install -g ngmin
 
 - [grunt-ngmin](https://github.com/btford/grunt-ngmin)
 - [gulp-ngmin](https://github.com/sindresorhus/gulp-ngmin)
+- [broccoli-ng-min](https://github.com/jakswa/broccoli-ng-min)
 
 ## Asset Pipelines
 
