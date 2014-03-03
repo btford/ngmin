@@ -161,5 +161,24 @@ someModule.factory('myFactory', ['myService', function (a) {
 
 Writing the "minifier-safe" version by hand is kind of annoying because you have to keep both the array of dependency names and function parameters in sync.
 
+## Plugin system
+
+If a library is not supported by ngmin it is possible to extend the annotation system by using annotation modules. These modules must be prefixed with `astral-angular-annotate-`. When installing such a module (preferred as `devDependency`) ngmin with automatically pick up the module and apply them to your code.
+
+### Plugin creation
+
+If your library is not supported by any annotation module you can create your own one. For usage you need to make sure your plugin package name is prefixed with `astral-angular-annotate-` and exports an function with the following signature:
+
+```
+module.exports = function (astral) {
+  // Your annotation code
+};
+```
+
+For further information see the following annotation modules:
+
+ * [Astral Angular Annotator](https://github.com/btford/astral-angular-annotate)
+ * [Angular ngRoute Extension](https://github.com/werk85/astral-angular-annotate-ng-route)
+
 ## License
 MIT
