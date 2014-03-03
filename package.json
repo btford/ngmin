@@ -11,9 +11,12 @@
     "escodegen": "~0.0.15",
     "esprima": "~1.0.2",
     "commander": "~1.1.1",
-    "clone": "~0.1.6"
+    "clone": "~0.1.6",
+    "findup-sync": "~0.1.2",
+    "globule": "~0.1.0"
   },
   "devDependencies": {
+    "astral-angular-annotate-ng-route": "git@github.com:werk85/astral-angular-annotate-ng-route.git",
     "should": "~1.2.1",
     "mocha": "~1.5.0"
   },
