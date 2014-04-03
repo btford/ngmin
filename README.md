@@ -56,6 +56,18 @@ From here, the annotated file(s) to a minifier.
 ngmin < somefile.js > somefile.annotate.js
 ```
 
+### Dynamic Mode
+`ngmin` now has a dynamic mode that you can enable with the `-d` or `--dynamic` flag:
+
+```shell
+ngmin -d < code.js
+```
+
+It runs your program in node with a patched version of Angular to try to detect places to annotate.
+This feature is new and might have rough edges.
+
+See [ngmin-dynamic](https://github.com/btford/ngmin-dynamic) for more.
+
 ## Conventions
 `ngmin` does not currently attempt to be fully generalized, and might not work if you're too clever. If you follow these conventions, which are the same as what the AngularJS Yeoman generator defaults, you should be fine.
 
