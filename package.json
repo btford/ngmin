@@ -32,6 +32,6 @@
     "ngmin": "./bin/ngmin"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/.bin/mocha --globals angular,require"
   }
 }
