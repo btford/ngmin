@@ -1,12 +1,17 @@
 
 var esprima = require('esprima'),
   escodegen = require('escodegen'),
+  dynamic = require('ngmin-dynamic'),
   astral = require('astral')();
 
 // register angular annotator in astral
 require('astral-angular-annotate')(astral);
 
-var annotate = exports.annotate = function (inputCode) {
+var annotate = exports.annotate = function (inputCode, options) {
+
+  if (options && options.dynamic) {
+    return dynamic(inputCode);
+  }
 
   var ast = esprima.parse(inputCode, {
     tolerant: true,
