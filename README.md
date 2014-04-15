@@ -98,7 +98,7 @@ angular.module('myModuleName').service('myService', function ($scope) {
 ```
 
 ### Chaining
-You can methods like this, and `ngmin` should still work fine:
+You can chain methods like this, and `ngmin` should still work fine:
 
 ```javascript
 // like this
