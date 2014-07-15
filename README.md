@@ -1,6 +1,8 @@
 # ngmin
 [![Build Status](https://travis-ci.org/btford/ngmin.png?branch=master)](https://travis-ci.org/btford/ngmin)
 
+**Note:** this module is deprecated in favor of [ng-annotate](https://github.com/olov/ng-annotate).
+
 ngmin is an AngularJS application pre-minifier. The goal is ultimately to use this alongside yeoman and grunt to make developing and building Angular apps fast, easy, and fun.
 
 ## tl;dr
