@@ -8,13 +8,13 @@ ngmin is an AngularJS application pre-minifier. The goal is ultimately to use th
 ## tl;dr
 Turns this
 
-```
+```javascript
 angular.module('whatever').controller('MyCtrl', function ($scope, $http) { ... });
 ```
 
 into
 
-```
+```javascript
 angular.module('whatever').controller('MyCtrl', ['$scope', '$http', function ($scope, $http) { ... }]);
 ```
 
