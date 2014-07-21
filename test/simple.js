@@ -241,4 +241,25 @@ describe('annotate', function () {
     annotated.should.equal(stringifyFunctionBody(fn));
   });
 
+  it('should annotate decorators define with $provide', function () {
+    var annotated = annotate(function () {
+      angular.module('myMod', []).config(function($provide) {
+        $provide.decorator('myService', function (dep) {});
+      });
+    });
+
+    annotated.should.equal(stringifyFunctionBody(function () {
+      angular.module('myMod', []).config([
+        '$provide',
+        function ($provide) {
+          $provide.decorator('myService', [
+            'dep',
+            function (dep) {
+            }
+          ]);
+        }
+      ]);
+    }));
+  });
+
 });
